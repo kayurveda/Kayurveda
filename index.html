@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  
+  <!-- Primary Meta Tags -->
+  <title>Kayurveda - AI Ayurvedic Wellness Guide</title>
+  <meta name="title" content="Kayurveda - AI Ayurvedic Wellness Guide" />
+  <meta name="description" content="Your personalized AI-powered Ayurvedic wellness companion. Get customized natural remedies, dosha-based routines, and holistic health guidance." />
+  <meta name="keywords" content="ayurveda, wellness, dosha, natural remedies, holistic health, AI wellness, personalized health" />
+  <meta name="author" content="Kayurveda" />
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#000000" />
+  <meta name="background-color" content="#000000" />
+  <meta name="msapplication-navbutton-color" content="#000000" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  
+  <!-- PWA Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Kayurveda" />
+  <meta name="application-name" content="Kayurveda" />
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/icon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kayurveda.app/" />
+  <meta property="og:title" content="Kayurveda - AI Ayurvedic Wellness Guide" />
+  <meta property="og:description" content="Your personalized AI-powered Ayurvedic wellness companion. Get customized natural remedies and dosha-based routines." />
+  <meta property="og:image" content="/og-image.png" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://kayurveda.app/" />
+  <meta property="twitter:title" content="Kayurveda - AI Ayurvedic Wellness Guide" />
+  <meta property="twitter:description" content="Your personalized AI-powered Ayurvedic wellness companion. Get customized natural remedies and dosha-based routines." />
+  <meta property="twitter:image" content="/og-image.png" />
+  
+  <!-- iOS Splash Screens -->
+  <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_portrait.png" />
+  <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/iPhone_15_Pro__iPhone_15__iPhone_14_Pro_portrait.png" />
+  <link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_portrait.png" />
+  <link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_portrait.png" />
+  <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/iPhone_13_mini__iPhone_12_mini__iPhone_11_Pro__iPhone_XS__iPhone_X_portrait.png" />
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Security -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no" />
+  
+  <style>
+    /* Critical CSS for initial load */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #000000;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Inter', system-ui, sans-serif;
+    }
+    
+    #root {
+      width: 100%;
+      min-height: 100%;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+    }
+    
+    /* Prevent pull-to-refresh on mobile */
+    body {
+      overscroll-behavior-y: contain;
+      touch-action: pan-x pan-y;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Loading screen */
+    .app-loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #000000;
+      z-index: 9999;
+    }
+    
+    .app-loading__logo {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #ffffff;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% {
+        text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 50px rgba(255,255,255,0.5);
+        opacity: 0.8;
+      }
+      50% {
+        text-shadow: 0 0 40px rgba(255,255,255,1), 0 0 70px rgba(255,255,255,0.7);
+        opacity: 1;
+      }
+    }
+    
+    /* Safe area insets for notched devices */
+    @supports (padding: max(0px)) {
+      body {
+        padding-top: max(0px, env(safe-area-inset-top));
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="app-loading" class="app-loading">
+    <div class="app-loading__logo">KAYA</div>
+  </div>
+  
+  <!-- App Root -->
+  <div id="root"></div>
+  
+  <!-- Service Worker Registration -->
+  <script>
+    // Remove loading screen once app is loaded
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('app-loading');
+        if (loader) {
+          loader.style.opacity = '0';
+          loader.style.transition = 'opacity 0.3s ease-out';
+          setTimeout(() => loader.remove(), 300);
+        }
+      }, 500);
+    });
+    
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('[Kayurveda] Service Worker registered:', registration.scope);
+            
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('[Kayurveda] New version available. Please refresh.');
+                  // You can show a notification to the user here
+                }
+              });
+            });
+          })
+          .catch((error) => {
+            console.error('[Kayurveda] Service Worker registration failed:', error);
+          });
+      });
+    }
+    
+    // iOS PWA detection
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+    
+    if (isIOS && !isInStandaloneMode) {
+      console.log('[Kayurveda] Running in browser on iOS - Install prompt available');
+    }
+    
+    // Android PWA install prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log('[Kayurveda] Install prompt available');
+      // Store the event for later use (can trigger install from UI)
+      window.installPrompt = deferredPrompt;
+    });
+    
+    window.addEventListener('appinstalled', () => {
+      console.log('[Kayurveda] App installed successfully');
+      deferredPrompt = null;
+    });
+    
+    // Prevent zoom on iOS
+    document.addEventListener('gesturestart', function(e) {
+      e.preventDefault();
+    });
+    
+    // Handle viewport height for mobile browsers
+    function setViewportHeight() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setViewportHeight();
+    window.addEventListener('resize', setViewportHeight);
+    window.addEventListener('orientationchange', setViewportHeight);
+    
+    // Performance monitoring
+    if ('performance' in window && 'PerformanceObserver' in window) {
+      const observer = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.entryType === 'navigation') {
+            console.log('[Kayurveda] Load time:', entry.loadEventEnd - entry.fetchStart, 'ms');
+          }
+        }
+      });
+      observer.observe({ entryTypes: ['navigation'] });
+    }
+  </script>
+  
+  <!-- Main App Script -->
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
