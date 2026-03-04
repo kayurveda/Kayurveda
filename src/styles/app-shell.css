@@ -82,6 +82,76 @@
 }
 
 /* ══════════════════════════════════════════════════════
+   Routine Tab
+   ══════════════════════════════════════════════════════ */
+/* Routine tab — list fills remaining height and scrolls */
+.routine-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.routine-header {
+    flex-shrink: 0;
+    padding: 12px 16px 0;
+}
+
+.routine-toggle {
+    /* Morning / Night switcher */
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 8px 16px 4px;
+}
+
+.routine-progress {
+    flex-shrink: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 0 16px 4px;
+}
+
+.routine-progress-fill {
+    height: 100%;
+    background: #7FB69A;
+    transition: width 0.4s ease;
+}
+
+/* ← THIS makes the list fill remaining space and scroll */
+.routine-list {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 16px;
+}
+
+/* Add ritual CTA — shows at the bottom of the list */
+.add-ritual-cta {
+    margin: 12px 16px;
+    border: 1px dashed rgba(127, 182, 154, 0.25);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    color: rgba(245, 240, 232, 0.35);
+    font-size: 13px;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.add-ritual-cta:hover {
+    border-color: rgba(127, 182, 154, 0.5);
+    color: rgba(245, 240, 232, 0.7);
+}
+
+/* ══════════════════════════════════════════════════════
    Quiz Screen
    ══════════════════════════════════════════════════════ */
 /* Quiz screen — fills full viewport, options anchored low */

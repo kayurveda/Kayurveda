@@ -1350,56 +1350,52 @@ export default function Kayurveda() {
     const progress = totalSteps > 0 ? (completedCount / totalSteps) * 100 : 0;
 
     return (
-      <div className="text-white">
-        <div className="sticky top-0 bg-black/95 backdrop-blur-sm border-b border-gray-900 z-10">
-          <div className="pt-6 pb-4 space-y-4">
-            <h1 className="text-2xl font-light screen-content">Your Routine</h1>
-
-            <div className="flex gap-2 bg-gray-900 p-1 rounded-full mx-4">
-              <button
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full transition-all ${activeRoutine === "morning"
-                  ? "bg-white text-black"
-                  : "text-gray-500"
-                  }`}
-                onClick={() => setActiveRoutine("morning")}
-              >
-                <Sun className="w-4 h-4" />
-                <span className="text-sm">Morning</span>
-              </button>
-              <button
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full transition-all ${activeRoutine === "night" ? "bg-white text-black" : "text-gray-500"
-                  }`}
-                onClick={() => setActiveRoutine("night")}
-              >
-                <Moon className="w-4 h-4" />
-                <span className="text-sm">Night</span>
-              </button>
-            </div>
-
-            <div className="space-y-2 screen-content">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-400">Progress</span>
-                <span className="text-white">
-                  {completedCount}/{totalSteps}
-                </span>
-              </div>
-              <div className="h-2 bg-gray-900 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-white rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.3 }}
-                />
-              </div>
-            </div>
-          </div>
+      <div className="routine-screen text-white">
+        <div className="routine-header">
+          <h1 className="text-2xl font-light">Your Routine</h1>
         </div>
 
-        <div className="py-6 space-y-6 screen-content">
+        <div className="routine-toggle">
+          <button
+            className={`flex items-center justify-center gap-2 py-3 transition-all ${activeRoutine === "morning"
+              ? "bg-white text-black"
+              : "text-gray-500 hover:bg-white/5"
+              }`}
+            onClick={() => setActiveRoutine("morning")}
+          >
+            <Sun className="w-4 h-4" />
+            <span className="text-sm">Morning</span>
+          </button>
+          <button
+            className={`flex items-center justify-center gap-2 py-3 transition-all ${activeRoutine === "night"
+              ? "bg-white text-black"
+              : "text-gray-500 hover:bg-white/5"
+              }`}
+            onClick={() => setActiveRoutine("night")}
+          >
+            <Moon className="w-4 h-4" />
+            <span className="text-sm">Night</span>
+          </button>
+        </div>
+
+        <div className="flex justify-between text-sm px-4 mb-1">
+          <span className="text-gray-400">Progress</span>
+          <span className="text-white">
+            {completedCount}/{totalSteps}
+          </span>
+        </div>
+        <div className="routine-progress">
+          <div
+            className="routine-progress-fill"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        <div className="routine-list">
           {routine.map((zone, zoneIndex) => (
             <motion.div
               key={zone.zone}
-              className="space-y-3"
+              className="space-y-3 px-4 py-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: zoneIndex * 0.1 }}
@@ -1415,18 +1411,15 @@ export default function Kayurveda() {
                   return (
                     <motion.div
                       key={step.name}
-                      className={`bg-gray-900 border ${isCompleted ? "border-gray-700" : "border-gray-800"
-                        } rounded-2xl p-4`}
+                      className={`bg-[#0f0f0f] border ${isCompleted ? "border-white/10" : "border-white/5"} rounded-2xl p-4`}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        delay: zoneIndex * 0.1 + stepIndex * 0.05,
-                      }}
+                      transition={{ delay: zoneIndex * 0.1 + stepIndex * 0.05 }}
                     >
                       <div className="flex items-start gap-4">
                         <button
                           className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${isCompleted
-                            ? "bg-white border-white"
+                            ? "bg-[#7FB69A] border-[#7FB69A]"
                             : "border-gray-600 hover:border-white"
                             }`}
                           onClick={() => toggleRoutineStep(step.name)}
@@ -1436,9 +1429,7 @@ export default function Kayurveda() {
 
                         <div className="flex-1">
                           <p
-                            className={`text-sm mb-1 ${isCompleted
-                              ? "text-gray-500 line-through"
-                              : "text-white"
+                            className={`text-sm mb-1 ${isCompleted ? "text-gray-500 line-through" : "text-white"
                               }`}
                           >
                             {step.name}
@@ -1449,9 +1440,7 @@ export default function Kayurveda() {
                               {step.duration}
                             </span>
                             <span className="text-gray-600">•</span>
-                            <span className="text-gray-500">
-                              {step.ingredients}
-                            </span>
+                            <span className="text-gray-500">{step.ingredients}</span>
                           </div>
                         </div>
                       </div>
@@ -1462,20 +1451,24 @@ export default function Kayurveda() {
             </motion.div>
           ))}
 
-          {completedCount === totalSteps && totalSteps > 0 && (
-            <motion.div
-              className="bg-gradient-to-br from-white/5 to-white/10 border border-white/20 rounded-2xl p-6 text-center"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-            >
-              <div className="text-4xl mb-2">✨</div>
-              <p className="text-lg font-light mb-1">Routine Complete!</p>
-              <p className="text-sm text-gray-400">
-                You're one step closer to your wellness goals
-              </p>
-            </motion.div>
-          )}
+          <div className="add-ritual-cta">
+            <span>+ Add custom ritual</span>
+          </div>
         </div>
+
+        {completedCount === totalSteps && totalSteps > 0 && (
+          <motion.div
+            className="bg-gradient-to-br from-white/5 to-white/10 border border-white/20 rounded-2xl p-6 text-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+          >
+            <div className="text-4xl mb-2">✨</div>
+            <p className="text-lg font-light mb-1">Routine Complete!</p>
+            <p className="text-sm text-gray-400">
+              You're one step closer to your wellness goals
+            </p>
+          </motion.div>
+        )}
       </div>
     );
   };
