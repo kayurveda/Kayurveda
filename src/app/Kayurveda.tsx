@@ -818,8 +818,8 @@ export default function Kayurveda() {
     return (
       <div className="quiz-screen">
         <div className="quiz-header">
-          <div className="flex items-center justify-between">
-            <KayaLogo size="sm" animated={false} />
+          <div className="flex items-center justify-between mb-2">
+            <span className="font-syne font-bold text-xl tracking-widest text-white">KAYA</span>
             <span className="text-sm text-gray-500">
               {currentQuestion + 1} of {doshaQuestions.length}
             </span>
@@ -831,21 +831,16 @@ export default function Kayurveda() {
 
         {currentQuestion === 0 && (
           <div className="quiz-kaya-message">
-            <motion.div
-              className="p-5 bg-[#111111] rounded-2xl border border-white/5"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <p className="text-sm text-gray-400 leading-relaxed m-0">
-                Before I help you glow, I need to understand your body. Answer
-                honestly — there's no right or wrong here. 🌿
-              </p>
-            </motion.div>
+            <p className="text-[15px] text-gray-400 leading-relaxed m-0">
+              Before I help you glow, I need to understand your body. 🌿
+            </p>
           </div>
         )}
 
+        {/* ← THIS DIV KILLS THE GAP — it absorbs empty space */}
         <div className="quiz-spacer" />
 
+        {/* Question + options — naturally at the bottom third */}
         <div className="quiz-question-block">
           <AnimatePresence mode="wait">
             <motion.div
@@ -856,19 +851,16 @@ export default function Kayurveda() {
               transition={{ duration: 0.3 }}
               style={{ width: '100%', maxWidth: 480, margin: '0 auto' }}
             >
-              <h2 className="quiz-question">
-                {question.question}
-              </h2>
-
+              <h2 className="quiz-question">{question.question}</h2>
               <div className="quiz-options">
                 {question.options.map((option, index) => (
-                  <button
+                  <div
                     key={index}
                     className="quiz-option"
                     onClick={() => handleDoshaAnswer(option.dosha)}
                   >
                     {option.text}
-                  </button>
+                  </div>
                 ))}
               </div>
 
@@ -886,7 +878,6 @@ export default function Kayurveda() {
             </motion.div>
           </AnimatePresence>
         </div>
-
       </div>
     );
   };
