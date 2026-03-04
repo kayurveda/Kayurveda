@@ -1600,7 +1600,7 @@ export default function Kayurveda() {
     const maxCompleted = Math.max(...weeklyData.map((d) => d.completed));
 
     return (
-      <div className="text-white py-6 space-y-6 screen-content">
+      <div className="flex-1 overflow-y-auto text-white py-6 space-y-6 screen-content">
         <div className="space-y-2">
           <h1 className="text-2xl font-light">Your Progress</h1>
           <p className="text-sm text-gray-400">
@@ -1768,7 +1768,7 @@ export default function Kayurveda() {
 
   // Dashboard - Profile Tab
   const renderProfileTab = () => (
-    <div className="text-white py-6 space-y-6 screen-content">
+    <div className="flex-1 overflow-y-auto text-white py-6 space-y-6 screen-content">
       <motion.div
         className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-3xl p-6 space-y-4"
         initial={{ opacity: 0, y: 20 }}
@@ -2010,7 +2010,7 @@ export default function Kayurveda() {
   // MAIN RENDER
   // ============================================
   return (
-    <div className="dark min-h-screen bg-black text-white">
+    <div className="dark h-full flex flex-col bg-black text-white overflow-hidden">
       {currentScreen === "welcome" && renderWelcome()}
       {currentScreen === "dosha-quiz" && renderDoshaQuiz()}
       {currentScreen === "dosha-reveal" && renderDoshaReveal()}

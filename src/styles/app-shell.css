@@ -16,9 +16,10 @@
 /* ── Tab content area ── */
 .tab-content {
     flex: 1;
-    /* fills space above the fixed tab bar */
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
     padding-bottom: 80px;
     /* clears the fixed tab bar */
 }
