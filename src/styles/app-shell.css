@@ -3,12 +3,13 @@
    ══════════════════════════════════════════════════════ */
 
 /* ── Root app shell ── */
-#app,
 .app-shell {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    min-height: 100dvh;
-    /* dvh = dynamic, accounts for mobile browser chrome */
+    min-height: 0;
+    /* critical: prevents flex children from overflowing */
+    overflow: hidden;
     background: #070707;
 }
 
