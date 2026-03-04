@@ -80,3 +80,104 @@
     text-transform: uppercase;
     color: var(--color-text-3, rgba(245, 240, 232, 0.28));
 }
+
+/* ══════════════════════════════════════════════════════
+   Quiz Screen
+   ══════════════════════════════════════════════════════ */
+/* Quiz screen — fills full viewport, options anchored low */
+.quiz-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* NOT min-height — this is a full-screen view */
+    min-height: 0;
+    overflow: hidden;
+    background: #000000;
+    color: #ffffff;
+}
+
+.quiz-header {
+    flex-shrink: 0;
+    /* never compress the top bar */
+    padding: 12px 16px 0;
+}
+
+.quiz-progress-bar {
+    height: 2px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 8px 0 0;
+}
+
+.quiz-progress-fill {
+    height: 2px;
+    background: #7FB69A;
+    box-shadow: 0 0 8px rgba(127, 182, 154, 0.4);
+    transition: width 0.4s ease;
+}
+
+.quiz-kaya-message {
+    flex-shrink: 0;
+    padding: 16px 16px 0;
+}
+
+/* THIS is what kills the gap — flex:1 on the spacer between */
+/* the KAYA message and the question pushes question DOWN     */
+.quiz-spacer {
+    flex: 1;
+    min-height: 0;
+}
+
+.quiz-question-block {
+    flex-shrink: 0;
+    /* don't compress the question */
+    padding: 0 16px 16px;
+}
+
+.quiz-question {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: #F5F0E8;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.quiz-option {
+    padding: 14px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    /* sentence case, not uppercase */
+    color: rgba(245, 240, 232, 0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    text-transform: none;
+    /* ← REMOVE text-transform:uppercase */
+    letter-spacing: normal;
+    /* ← REMOVE letter-spacing */
+}
+
+.quiz-option:last-child {
+    border-bottom: none;
+}
+
+.quiz-option:hover {
+    background: rgba(127, 182, 154, 0.05);
+}
+
+.quiz-option.selected {
+    background: rgba(127, 182, 154, 0.1);
+    border-left: 2px solid #7FB69A;
+    color: #F5F0E8;
+}

@@ -816,7 +816,7 @@ export default function Kayurveda() {
     const question = doshaQuestions[currentQuestion];
 
     return (
-      <div className="quiz-screen bg-black text-white">
+      <div className="quiz-screen">
         <div className="quiz-header">
           <div className="flex items-center justify-between">
             <KayaLogo size="sm" animated={false} />
@@ -824,13 +824,13 @@ export default function Kayurveda() {
               {currentQuestion + 1} of {doshaQuestions.length}
             </span>
           </div>
-          <div className="quiz-progress">
+          <div className="quiz-progress-bar">
             <div className="quiz-progress-fill" style={{ width: `${progress}%` }} />
           </div>
         </div>
 
         {currentQuestion === 0 && (
-          <div className="quiz-kaya-msg">
+          <div className="quiz-kaya-message">
             <motion.div
               className="p-5 bg-[#111111] rounded-2xl border border-white/5"
               initial={{ opacity: 0, y: -20 }}
@@ -844,7 +844,9 @@ export default function Kayurveda() {
           </div>
         )}
 
-        <div className="quiz-question-area">
+        <div className="quiz-spacer" />
+
+        <div className="quiz-question-block">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentQuestion}
@@ -860,19 +862,13 @@ export default function Kayurveda() {
 
               <div className="quiz-options">
                 {question.options.map((option, index) => (
-                  <motion.button
+                  <button
                     key={index}
-                    className="w-full p-4 bg-[#111111] hover:bg-[#181818] text-left transition-colors"
-                    style={{
-                      borderRadius: '12px',
-                      border: '1px solid var(--border)'
-                    }}
+                    className="quiz-option"
                     onClick={() => handleDoshaAnswer(option.dosha)}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.98 }}
                   >
-                    <p className="text-sm m-0 leading-snug">{option.text}</p>
-                  </motion.button>
+                    {option.text}
+                  </button>
                 ))}
               </div>
 
