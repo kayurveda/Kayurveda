@@ -22,6 +22,10 @@ import {
   Bell,
   Settings,
   LogOut,
+  Smile,
+  Sparkles,
+  Activity,
+  Leaf,
 } from "lucide-react";
 import KayaSigil from "./components/KayaSigil";
 import { Button } from "./components/ui/button";
@@ -204,7 +208,7 @@ const bodyZones = [
   {
     id: "face",
     name: "Face",
-    emoji: "✨",
+    icon: Smile,
     concerns: [
       "Acne & Breakouts",
       "Dark Spots",
@@ -217,7 +221,7 @@ const bodyZones = [
   {
     id: "hair",
     name: "Hair",
-    emoji: "💆",
+    icon: Sparkles,
     concerns: [
       "Hair Fall",
       "Dandruff",
@@ -230,13 +234,13 @@ const bodyZones = [
   {
     id: "oral",
     name: "Oral",
-    emoji: "😁",
+    icon: Activity,
     concerns: ["Yellow Teeth", "Bad Breath", "Gum Issues", "Sensitivity", "Plaque"],
   },
   {
     id: "body",
     name: "Body",
-    emoji: "🌿",
+    icon: Leaf,
     concerns: [
       "Dry Skin",
       "Uneven Tone",
@@ -1021,7 +1025,7 @@ export default function Kayurveda() {
 
   // Concerns Screen
   const renderConcerns = () => (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <div className="min-h-screen bg-black text-white flex flex-col pt-[max(20px,env(safe-area-inset-top))]">
       <div className="p-6 border-b border-gray-900">
         <KayaLogo size="sm" animated={false} />
       </div>
@@ -1043,51 +1047,69 @@ export default function Kayurveda() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {bodyZones.map((zone, zoneIndex) => (
-              <motion.div
-                key={zone.id}
-                className="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: zoneIndex * 0.1 }}
-              >
-                <div className="flex items-center gap-3 border-b border-gray-800 pb-3">
-                  <span className="text-3xl">{zone.emoji}</span>
-                  <h3 className="text-xl font-light">{zone.name}</h3>
-                </div>
+            {bodyZones.map((zone, zoneIndex) => {
+              const Icon = zone.icon;
+              return (
+                <motion.div
+                  key={zone.id}
+                  className="bg-gray-900 border border-gray-800 rounded-2xl py-6 space-y-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: zoneIndex * 0.1 }}
+                >
+                  <div className="flex items-center gap-3 border-b border-gray-800 pb-3 px-6">
+                    <Icon className="w-8 h-8 text-[#7FB69A]" strokeWidth={1.5} />
+                    <h3 className="text-xl" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700 }}>{zone.name}</h3>
+                  </div>
 
-                <div className="space-y-2">
-                  {zone.concerns.map((concern) => {
-                    const isSelected = selectedConcerns.includes(concern);
-                    return (
-                      <motion.button
-                        key={concern}
-                        className={`w-full p-3 rounded-xl text-left text-sm flex items-center justify-between transition-all ${isSelected
-                          ? "bg-white text-black"
-                          : "bg-gray-800 hover:bg-gray-700 text-white"
-                          }`}
-                        onClick={() => toggleConcern(concern)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <span>{concern}</span>
-                        {isSelected && <Check className="w-4 h-4" />}
-                      </motion.button>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            ))}
+                  <div className="space-y-2 px-6">
+                    {zone.concerns.map((concern) => {
+                      const isSelected = selectedConcerns.includes(concern);
+                      return (
+                        <motion.button
+                          key={concern}
+                          className={`w-full p-3 rounded-xl text-left text-sm flex items-center justify-between transition-all ${isSelected
+                            ? "bg-white text-black"
+                            : "bg-gray-800 hover:bg-gray-700 text-white"
+                            }`}
+                          onClick={() => toggleConcern(concern)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <span className="px-5">{concern}</span>
+                          {isSelected && <Check className="w-4 h-4 mr-2" />}
+                        </motion.button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
 
           {selectedConcerns.length > 0 && (
             <motion.div
-              className="text-center text-gray-500 text-sm"
+              className="text-center space-y-2 pt-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              {selectedConcerns.length} concern
-              {selectedConcerns.length !== 1 ? "s" : ""} selected
+              <div className="text-white font-medium text-lg">
+                {selectedConcerns.length} concern
+                {selectedConcerns.length !== 1 ? "s" : ""} selected
+              </div>
+
+              <AnimatePresence>
+                {selectedConcerns.length >= 7 && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="text-[#E7A677] text-sm max-w-sm mx-auto bg-[#E7A677]/10 p-3 rounded-lg border border-[#E7A677]/20"
+                  >
+                    That's plenty to start! We recommend focusing on 5 or fewer concerns for your initial routine to not overwhelm your skin.
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           )}
         </motion.div>
