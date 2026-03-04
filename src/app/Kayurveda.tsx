@@ -812,74 +812,77 @@ export default function Kayurveda() {
     const question = doshaQuestions[currentQuestion];
 
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col">
-        <div className="p-6 border-b border-gray-900">
-          <div className="flex items-center justify-between mb-4">
+      <div className="quiz-screen bg-black text-white">
+        <div className="quiz-header">
+          <div className="flex items-center justify-between">
             <KayaLogo size="sm" animated={false} />
             <span className="text-sm text-gray-500">
               {currentQuestion + 1} of {doshaQuestions.length}
             </span>
           </div>
-          <Progress value={progress} className="h-1 bg-gray-900" />
+          <div className="quiz-progress">
+            <div className="quiz-progress-fill" style={{ width: `${progress}%` }} />
+          </div>
         </div>
 
-        <div className="flex-1 p-6 flex flex-col">
-          {currentQuestion === 0 && (
+        {currentQuestion === 0 && (
+          <div className="quiz-kaya-msg">
             <motion.div
-              className="mb-8 p-6 bg-gray-900 rounded-2xl border border-gray-800"
+              className="p-5 bg-[#111111] rounded-2xl border border-white/5"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p className="text-sm text-gray-400 leading-relaxed m-0">
                 Before I help you glow, I need to understand your body. Answer
                 honestly — there's no right or wrong here. 🌿
               </p>
             </motion.div>
-          )}
-
-          <div className="flex-1 flex flex-col justify-center max-w-2xl mx-auto w-full">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentQuestion}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-6"
-              >
-                <h2 className="text-2xl md:text-3xl font-light mb-8">
-                  {question.question}
-                </h2>
-
-                <div className="space-y-4">
-                  {question.options.map((option, index) => (
-                    <motion.button
-                      key={index}
-                      className="w-full p-6 bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-white rounded-2xl text-left transition-all duration-200"
-                      onClick={() => handleDoshaAnswer(option.dosha)}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <p className="text-base">{option.text}</p>
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {currentQuestion > 0 && (
-          <div className="p-6">
-            <Button
-              variant="ghost"
-              onClick={handleQuizBack}
-              className="text-gray-500 hover:text-white"
-            >
-              ← Back
-            </Button>
           </div>
         )}
+
+        <div className="quiz-question-area">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentQuestion}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.3 }}
+              style={{ width: '100%', maxWidth: 480, margin: '0 auto' }}
+            >
+              <h2 className="quiz-question">
+                {question.question}
+              </h2>
+
+              <div className="quiz-options">
+                {question.options.map((option, index) => (
+                  <motion.button
+                    key={index}
+                    className="w-full p-4 bg-[#111111] hover:bg-[#181818] border border-white/5 hover:border-white/20 rounded-[14px] text-left transition-colors"
+                    onClick={() => handleDoshaAnswer(option.dosha)}
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <p className="text-sm m-0 leading-snug">{option.text}</p>
+                  </motion.button>
+                ))}
+              </div>
+
+              {currentQuestion > 0 && (
+                <div style={{ marginTop: 20, textAlign: 'center' }}>
+                  <Button
+                    variant="ghost"
+                    onClick={handleQuizBack}
+                    className="text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500 hover:text-white"
+                  >
+                    ← Back
+                  </Button>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
       </div>
     );
   };
