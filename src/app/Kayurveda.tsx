@@ -1334,7 +1334,7 @@ export default function Kayurveda() {
     const progress = totalSteps > 0 ? (completedCount / totalSteps) * 100 : 0;
 
     return (
-      <div className="min-h-screen bg-black text-white">
+      <div className="text-white">
         <div className="sticky top-0 bg-black/95 backdrop-blur-sm border-b border-gray-900 z-10">
           <div className="p-6 space-y-4">
             <h1 className="text-2xl font-light">Your Routine</h1>
@@ -1466,7 +1466,7 @@ export default function Kayurveda() {
 
   // Dashboard - KAYA Chat Tab
   const renderKayaTab = () => (
-    <div className="h-screen bg-black text-white flex flex-col">
+    <div className="flex flex-col text-white" style={{ height: 'calc(100dvh - 72px)' }}>
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 border-b border-gray-700 p-6">
         <div className="flex items-center gap-3">
           <motion.div
@@ -1599,7 +1599,7 @@ export default function Kayurveda() {
     const maxCompleted = Math.max(...weeklyData.map((d) => d.completed));
 
     return (
-      <div className="min-h-screen bg-black text-white p-6 space-y-6">
+      <div className="text-white p-6 space-y-6">
         <div className="space-y-2">
           <h1 className="text-2xl font-light">Your Progress</h1>
           <p className="text-sm text-gray-400">
@@ -1767,7 +1767,7 @@ export default function Kayurveda() {
 
   // Dashboard - Profile Tab
   const renderProfileTab = () => (
-    <div className="min-h-screen bg-black text-white p-6 space-y-6">
+    <div className="text-white p-6 space-y-6">
       <motion.div
         className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-3xl p-6 space-y-4"
         initial={{ opacity: 0, y: 20 }}
@@ -1937,8 +1937,8 @@ export default function Kayurveda() {
     ];
 
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col">
-        <div className="flex-1 overflow-auto pb-20">
+      <div className="app-shell text-white">
+        <div className="tab-content">
           {dashboardTab === "home" && renderHomeTab()}
           {dashboardTab === "routine" && renderRoutineTab()}
           {dashboardTab === "kaya" && renderKayaTab()}
@@ -1946,8 +1946,8 @@ export default function Kayurveda() {
           {dashboardTab === "profile" && renderProfileTab()}
         </div>
 
-        <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-900 safe-area-bottom">
-          <div className="flex items-center justify-around px-2 py-3">
+        <nav className="tab-bar">
+          <div className="flex items-center justify-around px-2">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = dashboardTab === tab.id;
@@ -2000,7 +2000,7 @@ export default function Kayurveda() {
               );
             })}
           </div>
-        </div>
+        </nav>
       </div>
     );
   };
