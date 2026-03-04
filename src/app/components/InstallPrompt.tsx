@@ -266,16 +266,24 @@ export function InstallPrompt() {
     return () => window.removeEventListener('beforeinstallprompt', handler);
   }, []);
 
+  /* ── Auto-show: appear after a short delay on first visit ── */
+  useEffect(() => {
+    if (isPWA()) return;
+    if (wasDismissedRecently()) return;
+
+    const timer = setTimeout(() => {
+      setVisible(true);
+    }, 4000); // 4 second delay — not immediate, not annoying
+
+    return () => clearTimeout(timer);
+  }, []);
+
   /* ── Public trigger: called from the outside via custom event ── */
   useEffect(() => {
     const trigger = () => {
       // Gate checks
       if (isPWA()) return;
       if (wasDismissedRecently()) return;
-      if (!isIOSDevice && !hasPromptEvent) {
-        // On non-iOS, only show if we actually captured a prompt event
-        // (still allow it — the banner can show generic instructions)
-      }
       setVisible(true);
     };
 
