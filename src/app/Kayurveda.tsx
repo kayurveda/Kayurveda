@@ -1198,145 +1198,147 @@ export default function Kayurveda() {
     const greeting = getGreeting();
 
     return (
-      <div className="text-white py-6 space-y-6 screen-content">
-        <motion.div
-          className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-3xl p-6 space-y-3"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-light">{greeting}</h2>
-              <p className="text-gray-400 text-sm mt-1">
-                Your {userDosha.charAt(0).toUpperCase() + userDosha.slice(1)}{" "}
-                routine awaits
+      <div className="home-screen text-white text-left">
+        <div className="home-content">
+          <div className="home-greeting">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-light m-0">{greeting}</h2>
+                <p className="text-gray-400 text-sm mt-1 m-0">
+                  Your {userDosha.charAt(0).toUpperCase() + userDosha.slice(1)}{" "}
+                  routine awaits
+                </p>
+              </div>
+              <div className="text-3xl">
+                {currentTime.getHours() < 12
+                  ? "🌅"
+                  : currentTime.getHours() < 17
+                    ? "☀️"
+                    : "🌙"}
+              </div>
+            </div>
+            <div className="pt-2 mt-2 border-t border-gray-800">
+              <p className="text-xs text-gray-500 m-0">
+                {new Date().toLocaleDateString("en-US", {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric",
+                })}
               </p>
             </div>
-            <div className="text-4xl">
-              {currentTime.getHours() < 12
-                ? "🌅"
-                : currentTime.getHours() < 17
-                  ? "☀️"
-                  : "🌙"}
+          </div>
+
+          <div className="home-ritual-list">
+            <h3 className="text-lg font-light mb-3 m-0">Today's Rituals</h3>
+            <div className="space-y-2">
+              {todayRituals.map((ritual, index) => {
+                const Icon = ritual.icon;
+                return (
+                  <motion.div
+                    key={ritual.id}
+                    className={`bg-[#0f0f0f] border ${ritual.done ? "border-white/10" : "border-white/5"
+                      } rounded-2xl p-4 flex items-center gap-4`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    {ritual.useSigil ? (
+                      <KayaSigil variant="avatar" className="w-10 h-10" />
+                    ) : (
+                      <div
+                        className={`w-10 h-10 rounded-full flex items-center justify-center ${ritual.done ? "bg-white/10" : "bg-white"
+                          }`}
+                      >
+                        {Icon && (
+                          <Icon
+                            className={`w-5 h-5 ${ritual.done ? "text-gray-500" : "text-black"
+                              }`}
+                          />
+                        )}
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <p
+                        className={`text-sm m-0 ${ritual.done ? "text-gray-500 line-through" : "text-white"
+                          }`}
+                      >
+                        {ritual.name}
+                      </p>
+                      <p className="text-xs text-gray-600 m-0 mt-0.5">{ritual.time}</p>
+                    </div>
+                    {!ritual.done && (
+                      <ChevronRight className="w-5 h-5 text-gray-600" />
+                    )}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
-          <div className="pt-3 border-t border-gray-700">
-            <p className="text-xs text-gray-500">
-              {new Date().toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-          </div>
-        </motion.div>
 
-        <div className="space-y-3">
-          <h3 className="text-lg font-light">Today's Rituals</h3>
-          <div className="space-y-2">
-            {todayRituals.map((ritual, index) => {
-              const Icon = ritual.icon;
-              return (
-                <motion.div
-                  key={ritual.id}
-                  className={`bg-gray-900 border ${ritual.done ? "border-gray-700" : "border-gray-800"
-                    } rounded-2xl p-4 flex items-center gap-4`}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  {ritual.useSigil ? (
-                    <KayaSigil variant="avatar" />
-                  ) : (
-                    <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center ${ritual.done ? "bg-white/10" : "bg-white"
-                        }`}
-                    >
-                      {Icon && <Icon
-                        className={`w-5 h-5 ${ritual.done ? "text-gray-500" : "text-black"
-                          }`}
-                      />}
-                    </div>
-                  )}
-                  <div className="flex-1">
-                    <p
-                      className={`text-sm ${ritual.done
-                        ? "text-gray-500 line-through"
-                        : "text-white"
-                        }`}
-                    >
-                      {ritual.name}
-                    </p>
-                    <p className="text-xs text-gray-600">{ritual.time}</p>
-                  </div>
-                  {!ritual.done && (
-                    <ChevronRight className="w-5 h-5 text-gray-600" />
-                  )}
-                </motion.div>
-              );
-            })}
+          <div className="home-stats">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                className="stat-card"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 + index * 0.1 }}
+              >
+                <div className="text-2xl mb-1">{stat.emoji}</div>
+                <div className="stat-value">{stat.value}</div>
+                <div className="stat-label">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
-        </div>
 
-        <div className="stats-row">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              className="stat-card"
+          <motion.div
+            className="home-kaya-tip"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            <div className="flex items-start gap-3">
+              <KayaSigil variant="avatar" />
+              <div className="flex-1 mt-1">
+                <p className="text-[11px] font-bold tracking-widest text-[#7FB69A] uppercase mb-1 m-0">
+                  KAYA SAYS
+                </p>
+                <p className="text-[13px] leading-relaxed m-0 text-gray-300">
+                  {currentNudge}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="home-shortcuts">
+            <motion.button
+              className="bg-[#0f0f0f] border border-white/5 rounded-2xl p-4 text-left hover:border-white/20 transition-colors"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 + index * 0.1 }}
+              transition={{ delay: 0.7 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setDashboardTab("progress")}
             >
-              <div className="text-2xl mb-1">{stat.emoji}</div>
-              <div className="stat-value">{stat.value}</div>
-              <div className="stat-label">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
+              <div className="text-2xl mb-2">📊</div>
+              <p className="text-sm font-light m-0">View Progress</p>
+              <p className="text-[11px] text-gray-500 mt-1 m-0 leading-tight">Track your journey</p>
+            </motion.button>
 
-        <motion.div
-          className="bg-gradient-to-br from-white/5 to-white/10 border border-white/20 rounded-2xl p-5"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-        >
-          <div className="flex items-start gap-3">
-            <KayaSigil variant="avatar" />
-            <div className="flex-1">
-              <p className="text-xs text-gray-400 mb-1">KAYA says</p>
-              <p className="text-sm leading-relaxed">{currentNudge}</p>
-            </div>
+            <motion.button
+              className="bg-[#0f0f0f] border border-white/5 rounded-2xl p-4 text-left hover:border-white/20 transition-colors"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setDashboardTab("kaya")}
+            >
+              <div className="text-2xl mb-2">💬</div>
+              <p className="text-sm font-light m-0">Ask KAYA</p>
+              <p className="text-[11px] text-gray-500 mt-1 m-0 leading-tight">Get personalized tips</p>
+            </motion.button>
           </div>
-        </motion.div>
-
-        <div className="grid grid-cols-2 gap-3">
-          <motion.button
-            className="bg-gray-900 border border-gray-800 rounded-2xl p-5 text-left hover:border-white/30 transition-colors"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.7 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setDashboardTab("progress")}
-          >
-            <div className="text-3xl mb-2">📊</div>
-            <p className="text-sm font-light">View Progress</p>
-            <p className="text-xs text-gray-500 mt-1">Track your journey</p>
-          </motion.button>
-
-          <motion.button
-            className="bg-gray-900 border border-gray-800 rounded-2xl p-5 text-left hover:border-white/30 transition-colors"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setDashboardTab("kaya")}
-          >
-            <div className="text-3xl mb-2">💬</div>
-            <p className="text-sm font-light">Ask KAYA</p>
-            <p className="text-xs text-gray-500 mt-1">Get personalized tips</p>
-          </motion.button>
         </div>
       </div>
     );
@@ -1508,8 +1510,8 @@ export default function Kayurveda() {
             >
               <div
                 className={`max-w-[80%] rounded-2xl p-4 ${message.sender === "user"
-                    ? "bg-white text-black"
-                    : "bg-gray-900 text-white border border-gray-800"
+                  ? "bg-white text-black"
+                  : "bg-gray-900 text-white border border-gray-800"
                   }`}
               >
                 <p className="text-sm leading-relaxed m-0">{message.text}</p>

@@ -368,3 +368,72 @@
 .kaya-send:hover {
     box-shadow: 0 0 24px rgba(127, 182, 154, 0.5);
 }
+
+/* ══════════════════════════════════════════════════════
+   Home Tab
+   ══════════════════════════════════════════════════════ */
+/* Home tab — scrollable content that fills the available height */
+.home-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+/* Scrollable content area fills everything below the tab bar */
+.home-content {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 16px 24px;
+    /* horizontal padding all at once here */
+}
+
+/* The greeting header — sticky so it stays on scroll */
+.home-greeting {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(7, 7, 7, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 0 10px;
+    margin: 0 -16px;
+    /* extend to screen edges (counters parent padding) */
+    padding-left: 16px;
+    padding-right: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 12px;
+}
+
+/* Ritual list — don't let it grow taller than needed */
+.home-ritual-list {
+    margin-bottom: 12px;
+}
+
+/* Stats row */
+.home-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+    width: 100%;
+    /* never let this overflow */
+}
+
+/* KAYA tip + shortcuts — these used to be hidden below viewport */
+.home-kaya-tip {
+    background: #161616;
+    border-left: 2px solid #7FB69A;
+    border-radius: 0 10px 10px 0;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+}
+
+.home-shortcuts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+}
