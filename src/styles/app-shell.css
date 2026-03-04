@@ -67,10 +67,10 @@
 
 .stat-value {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 1;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 }
 
 .stat-label {
@@ -87,9 +87,9 @@
    ══════════════════════════════════════════════════════ */
 /* Routine tab — list fills remaining height and scrolls */
 .routine-screen {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100%;
     min-height: 0;
 }
 
@@ -191,17 +191,22 @@
     padding: 16px 16px 0;
 }
 
-/* THIS is what kills the gap — flex:1 on the spacer between */
-/* the KAYA message and the question pushes question DOWN     */
+/* Spacer: grows but capped so the question sits in the middle */
+/* flex: 1 with max-height prevents it from consuming the full viewport */
 .quiz-spacer {
     flex: 1;
-    min-height: 0;
+    min-height: 24px;
+    max-height: 120px;
 }
 
 .quiz-question-block {
-    flex-shrink: 0;
-    /* don't compress the question */
-    padding: 0 16px 16px;
+    flex: 1;
+    /* fills remaining space below the spacer */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 16px 32px;
+    min-height: 0;
 }
 
 .quiz-question {
@@ -258,9 +263,9 @@
    ══════════════════════════════════════════════════════ */
 /* KAYA screen — messages area fills all space between header and input */
 .kaya-screen {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100%;
     min-height: 0;
 }
 
@@ -375,9 +380,9 @@
    ══════════════════════════════════════════════════════ */
 /* Home tab — scrollable content that fills the available height */
 .home-screen {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100%;
     min-height: 0;
 }
 

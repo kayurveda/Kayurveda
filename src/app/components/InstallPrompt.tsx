@@ -91,7 +91,7 @@ function IOSInstructionModal({ onClose }: { onClose: () => void }) {
                 margin: 0,
               }}
             >
-              ADD KAYA TO HOME SCREEN
+              INSTALL KAYURVEDA
             </h3>
             <p
               style={{
@@ -360,7 +360,7 @@ export function InstallPrompt() {
                         lineHeight: 1.4,
                       }}
                     >
-                      Add KAYA to your home screen
+                      Install Kayurveda
                     </h3>
                     <p
                       style={{
@@ -399,7 +399,7 @@ export function InstallPrompt() {
                       boxShadow: '0 2px 16px rgba(196,168,130,0.25)',
                     }}
                   >
-                    ADD TO HOME SCREEN
+                    INSTALL APP
                   </button>
 
                   {/* Secondary — muted text */}
