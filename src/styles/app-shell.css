@@ -251,3 +251,120 @@
     border-left: 2px solid #7FB69A;
     color: #F5F0E8;
 }
+
+/* ══════════════════════════════════════════════════════
+   KAYA Screen
+   ══════════════════════════════════════════════════════ */
+/* KAYA screen — messages area fills all space between header and input */
+.kaya-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.kaya-header {
+    flex-shrink: 0;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ← KEY FIX: messages fills ALL remaining vertical space */
+.kaya-messages {
+    flex: 1;
+    min-height: 0;
+    /* allows shrinking below content size */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0;
+    gap: 8px;
+}
+
+/* Suggested questions — shown when chat is empty */
+.kaya-suggested {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.kaya-suggested-q {
+    background: #1d1d1d;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.6);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    text-transform: none;
+    /* ← remove uppercase from suggestions too */
+    letter-spacing: normal;
+}
+
+.kaya-suggested-q:hover {
+    background: rgba(127, 182, 154, 0.07);
+    border-color: rgba(127, 182, 154, 0.3);
+    color: #F5F0E8;
+}
+
+/* Input bar — always docked to bottom */
+.kaya-input-bar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    background: rgba(7, 7, 7, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.kaya-input {
+    flex: 1;
+    background: #1d1d1d;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 14px;
+    padding: 11px 16px;
+    font-size: 15px;
+    font-weight: 300;
+    font-family: 'DM Sans', sans-serif;
+    color: #F5F0E8;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.kaya-input:focus {
+    border-color: #7FB69A;
+}
+
+.kaya-input::placeholder {
+    color: rgba(245, 240, 232, 0.28);
+}
+
+.kaya-send {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #7FB69A;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 16px rgba(127, 182, 154, 0.3);
+    transition: box-shadow 0.2s;
+}
+
+.kaya-send:hover {
+    box-shadow: 0 0 24px rgba(127, 182, 154, 0.5);
+}

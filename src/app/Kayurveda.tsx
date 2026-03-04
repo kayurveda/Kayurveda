@@ -1475,49 +1475,46 @@ export default function Kayurveda() {
 
   // Dashboard - KAYA Chat Tab
   const renderKayaTab = () => (
-    <div className="flex flex-col text-white" style={{ height: 'calc(100dvh - 72px)' }}>
-      <div className="bg-gradient-to-r from-gray-900 to-gray-800 border-b border-gray-700 py-6 screen-content">
-        <div className="flex items-center gap-3">
-          <motion.div
-            animate={{
-              boxShadow: [
-                "0 0 20px rgba(127,182,154,0.2)",
-                "0 0 30px rgba(127,182,154,0.4)",
-                "0 0 20px rgba(127,182,154,0.2)",
-              ],
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="rounded-full"
-          >
-            <KayaSigil variant="avatar" />
-          </motion.div>
-          <div>
-            <h2 className="text-lg font-light">KAYA</h2>
-            <p className="text-xs text-gray-400">Your AI Wellness Guide</p>
-          </div>
+    <div className="kaya-screen text-white text-left">
+      <div className="kaya-header">
+        <motion.div
+          animate={{
+            boxShadow: [
+              "0 0 20px rgba(127,182,154,0.2)",
+              "0 0 30px rgba(127,182,154,0.4)",
+              "0 0 20px rgba(127,182,154,0.2)",
+            ],
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="rounded-full flex-shrink-0"
+        >
+          <KayaSigil variant="avatar" />
+        </motion.div>
+        <div>
+          <h2 className="text-lg font-light leading-tight m-0">KAYA</h2>
+          <p className="text-xs text-gray-400 m-0">Your AI Wellness Guide</p>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto py-6 space-y-4 screen-content">
+      <div className="kaya-messages screen-content">
         <AnimatePresence>
           {messages.map((message) => (
             <motion.div
               key={message.id}
-              className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"
-                }`}
+              className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
             >
               <div
                 className={`max-w-[80%] rounded-2xl p-4 ${message.sender === "user"
-                  ? "bg-white text-black"
-                  : "bg-gray-900 text-white border border-gray-800"
+                    ? "bg-white text-black"
+                    : "bg-gray-900 text-white border border-gray-800"
                   }`}
               >
-                <p className="text-sm leading-relaxed">{message.text}</p>
+                <p className="text-sm leading-relaxed m-0">{message.text}</p>
                 <p
-                  className={`text-xs mt-2 ${message.sender === "user" ? "text-gray-600" : "text-gray-500"
+                  className={`text-xs mt-2 m-0 ${message.sender === "user" ? "text-gray-600" : "text-gray-500"
                     }`}
                 >
                   {message.timestamp.toLocaleTimeString([], {
@@ -1556,24 +1553,19 @@ export default function Kayurveda() {
         )}
 
         {messages.length === 1 && (
-          <div className="space-y-3 mt-6">
-            <p className="text-xs text-gray-500 uppercase tracking-wider">
+          <div className="mt-auto pt-6">
+            <p className="text-xs text-gray-500 uppercase tracking-wider mb-2 px-1">
               Suggested Questions
             </p>
-            <div className="grid grid-cols-1 gap-2">
+            <div className="kaya-suggested">
               {suggestedQuestions.map((question, index) => (
-                <motion.button
+                <button
                   key={index}
-                  className="bg-gray-900 border border-gray-800 hover:border-white/30 rounded-xl p-3 text-left text-sm transition-colors"
+                  className="kaya-suggested-q text-left"
                   onClick={() => handleSendMessage(question)}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                 >
                   {question}
-                </motion.button>
+                </button>
               ))}
             </div>
           </div>
@@ -1582,23 +1574,21 @@ export default function Kayurveda() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="border-t border-gray-900 py-4 bg-black screen-content">
-        <div className="flex gap-2 max-w-4xl mx-auto">
-          <Input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-            placeholder="Ask KAYA anything..."
-            className="flex-1 bg-gray-900 border-gray-800 rounded-full px-6 text-white placeholder:text-gray-600 focus:border-white"
-          />
-          <Button
-            onClick={() => handleSendMessage()}
-            disabled={!inputValue.trim()}
-            className="w-12 h-12 rounded-full bg-white text-black hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed p-0 flex items-center justify-center"
-          >
-            <Send className="w-5 h-5" />
-          </Button>
-        </div>
+      <div className="kaya-input-bar">
+        <input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+          placeholder="Ask KAYA anything..."
+          className="kaya-input"
+        />
+        <button
+          onClick={() => handleSendMessage()}
+          disabled={!inputValue.trim()}
+          className="kaya-send disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <Send className="w-5 h-5 text-black" />
+        </button>
       </div>
     </div>
   );
