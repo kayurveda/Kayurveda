@@ -1,0 +1,37 @@
+/* ══════════════════════════════════════════════════════
+   App Shell — Layout skeleton for the KAYA PWA
+   ══════════════════════════════════════════════════════ */
+
+/* ── Root app shell ── */
+#app,
+.app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    /* dvh = dynamic, accounts for mobile browser chrome */
+    background: #070707;
+}
+
+/* ── Tab content area ── */
+.tab-content {
+    flex: 1;
+    /* fills space above the fixed tab bar */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 80px;
+    /* clears the fixed tab bar */
+}
+
+/* ── Fixed bottom tab bar ── */
+.tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(7, 7, 7, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 10px 0 max(14px, env(safe-area-inset-bottom));
+}
