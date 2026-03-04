@@ -35,3 +35,42 @@
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding: 10px 0 max(14px, env(safe-area-inset-bottom));
 }
+
+/* ══════════════════════════════════════════════════════
+   Stats Grid
+   ══════════════════════════════════════════════════════ */
+/* Replace fixed-width stats with fluid grid */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    margin: 12px 0;
+}
+
+.stat-card {
+    background: var(--color-surface, #111111);
+    border: 1px solid var(--color-border, rgba(255, 255, 255, 0.07));
+    border-radius: 12px;
+    padding: 14px 10px;
+    text-align: center;
+    min-width: 0;
+    /* prevents overflow in grid */
+}
+
+.stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text-3, rgba(245, 240, 232, 0.28));
+}

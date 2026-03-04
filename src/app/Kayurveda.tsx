@@ -1287,18 +1287,18 @@ export default function Kayurveda() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="stats-row">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              className="bg-gray-900 border border-gray-800 rounded-2xl p-4 text-center"
+              className="stat-card"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3 + index * 0.1 }}
             >
               <div className="text-2xl mb-1">{stat.emoji}</div>
-              <p className="text-lg font-light">{stat.value}</p>
-              <p className="text-xs text-gray-500">{stat.label}</p>
+              <div className="stat-value">{stat.value}</div>
+              <div className="stat-label">{stat.label}</div>
             </motion.div>
           ))}
         </div>
@@ -1810,18 +1810,18 @@ export default function Kayurveda() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-700">
-          <div className="text-center">
-            <p className="text-2xl font-light">7</p>
-            <p className="text-xs text-gray-500">Day Streak</p>
+        <div className="stats-row pt-4 border-t border-gray-700">
+          <div className="stat-card">
+            <div className="stat-value">7</div>
+            <div className="stat-label">Day Streak</div>
           </div>
-          <div className="text-center">
-            <p className="text-2xl font-light">24</p>
-            <p className="text-xs text-gray-500">Remedies Tried</p>
+          <div className="stat-card">
+            <div className="stat-value">24</div>
+            <div className="stat-label">Remedies</div>
           </div>
-          <div className="text-center">
-            <p className="text-2xl font-light">{selectedConcerns.length}</p>
-            <p className="text-xs text-gray-500">Concerns</p>
+          <div className="stat-card">
+            <div className="stat-value">{selectedConcerns.length}</div>
+            <div className="stat-label">Concerns</div>
           </div>
         </div>
       </motion.div>
