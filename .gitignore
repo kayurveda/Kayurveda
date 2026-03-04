@@ -27,3 +27,4 @@ npm-debug.log*
 
 # Next.js (stale artifacts)
 .next/
+.vercel

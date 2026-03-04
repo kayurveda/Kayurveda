@@ -3,6 +3,11 @@
 :root {
   --font-size: 16px;
 
+  /* ── Font-family stacks ── */
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-ui: 'Syne', 'Inter', system-ui, sans-serif;
+  --font-body: 'DM Sans', 'Inter', system-ui, sans-serif;
+
   /* ── Background & Surfaces ── */
   --background: #080808;
   --foreground: #F5F0E8;
@@ -207,54 +212,105 @@
     @apply bg-background text-foreground;
   }
 
+
   /**
-  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
-  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
-  */
+   * Typography system
+   * ─────────────────────────────────────────────────
+   * Display     → Cormorant Garamond 300i  (hero, dosha reveal)
+   * Heading 1   → Cormorant Garamond 400   (quiz, screen titles)
+   * Heading 2   → Cormorant Garamond 300i  (subheadings, card titles)
+   * UI Label    → Syne 700  10px +0.4em    (tabs, badges, section heads)
+   * Button      → Syne 700  11px +0.2em    (CTAs, nav items)
+   * Body        → DM Sans 300  15px/1.75   (messages, descriptions)
+   * Caption     → DM Sans 400  11px +0.05em (timestamps, metadata)
+   */
 
   html {
     font-size: var(--font-size);
   }
 
-  h1 {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  /* ── Body default ── */
+  body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
   }
 
+  /* ── Display: Dosha reveal, Welcome hero ── */
+  .text-display {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.2;
+  }
+
+  /* ── Heading 1: Quiz questions, screen titles ── */
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-2xl);
+    line-height: 1.3;
+  }
+
+  /* ── Heading 2: Subheadings, card titles ── */
   h2 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
     font-size: var(--text-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    line-height: 1.35;
   }
 
   h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
     font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    line-height: 1.4;
   }
 
   h4 {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
     line-height: 1.5;
   }
 
+  /* ── UI Label: Tabs, section headers, badges ── */
   label {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
     line-height: 1.5;
   }
 
+  /* ── Button: All CTAs and nav items ── */
   button {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
+    font-family: var(--font-ui);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  /* ── Caption: Timestamps, metadata, muted info ── */
+  .text-caption {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.05em;
     line-height: 1.5;
   }
 
   input {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.5;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.75;
   }
 }

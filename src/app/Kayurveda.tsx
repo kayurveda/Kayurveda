@@ -11,7 +11,6 @@ import {
   Check,
   Clock,
   Send,
-  Sparkles,
   Droplet,
   ChevronRight,
   Camera,
@@ -24,6 +23,7 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
+import KayaSigil from "./components/KayaSigil";
 import { Button } from "./components/ui/button";
 import { Progress } from "./components/ui/progress";
 import { Input } from "./components/ui/input";
@@ -614,14 +614,16 @@ export default function Kayurveda() {
       name: "Morning Face Cleanse",
       time: "7:00 AM",
       done: true,
-      icon: Sparkles,
+      icon: null,
+      useSigil: true,
     },
     {
       id: 2,
       name: "Turmeric Face Mask",
       time: "8:00 AM",
       done: true,
-      icon: Sparkles,
+      icon: null,
+      useSigil: true,
     },
     {
       id: 3,
@@ -1057,11 +1059,10 @@ export default function Kayurveda() {
                     return (
                       <motion.button
                         key={concern}
-                        className={`w-full p-3 rounded-xl text-left text-sm flex items-center justify-between transition-all ${
-                          isSelected
-                            ? "bg-white text-black"
-                            : "bg-gray-800 hover:bg-gray-700 text-white"
-                        }`}
+                        className={`w-full p-3 rounded-xl text-left text-sm flex items-center justify-between transition-all ${isSelected
+                          ? "bg-white text-black"
+                          : "bg-gray-800 hover:bg-gray-700 text-white"
+                          }`}
                         onClick={() => toggleConcern(concern)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -1104,85 +1105,73 @@ export default function Kayurveda() {
 
   // Unlock Screen
   const renderUnlock = () => {
+    const msgs = [
+      "Reading your constitution...",
+      "Mapping your concerns to root causes...",
+      "Preparing your Pitta routine...",
+      "Consulting the ancient texts...",
+    ];
+
     const stages = [
       "Analyzing your dosha profile...",
       "Mapping your concerns to root causes...",
       "Generating personalized remedies...",
       "Building your custom routine...",
-      "Your wellness journey is ready! ✨",
+      "Your wellness journey is ready!",
     ];
 
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6">
-        <div className="max-w-md w-full space-y-12">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="text-6xl font-bold tracking-wider text-center glow-text">
-              KAYA
-            </div>
-          </motion.div>
-
-          <div className="space-y-6">
-            <div className="h-1 bg-gray-900 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-white rounded-full"
-                initial={{ width: "0%" }}
-                animate={{ width: `${((unlockStage + 1) / stages.length) * 100}%` }}
-                transition={{ duration: 0.5 }}
-              />
-            </div>
-
-            <div className="min-h-[60px] flex items-center justify-center">
-              <motion.p
-                key={unlockStage}
-                className="text-center text-gray-400"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-              >
-                {stages[unlockStage]}
-              </motion.p>
-            </div>
+      <div className="kaya-loader-wrap">
+        {/* Spinning rings + sigil */}
+        <motion.div
+          className="kaya-loader"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="ring ring-1" />
+          <div className="ring ring-2" />
+          <div className="ring ring-3" />
+          <div className="ring-center">
+            <KayaSigil variant="mark" className="w-9 h-9" />
           </div>
+        </motion.div>
 
-          <div className="flex justify-center gap-2">
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                className="w-2 h-2 bg-white rounded-full"
-                animate={{
-                  opacity: [0.3, 1, 0.3],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-              />
-            ))}
-          </div>
+        {/* KAYA wordmark */}
+        <motion.div
+          className="loader-name"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          KAYA
+        </motion.div>
+
+        {/* Rotating message */}
+        <div className="min-h-[32px] flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={unlockStage}
+              className="loader-msg"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3 }}
+            >
+              {msgs[unlockStage % msgs.length]}
+            </motion.p>
+          </AnimatePresence>
         </div>
 
-        <style>{`
-          .glow-text {
-            text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 50px rgba(255,255,255,0.5);
-            animation: pulse-glow 2s ease-in-out infinite;
-          }
-          
-          @keyframes pulse-glow {
-            0%, 100% {
-              text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 50px rgba(255,255,255,0.5);
-            }
-            50% {
-              text-shadow: 0 0 40px rgba(255,255,255,1), 0 0 70px rgba(255,255,255,0.7);
-            }
-          }
-        `}</style>
+        {/* Progress bar */}
+        <div className="loader-bar-wrap">
+          <motion.div
+            className="loader-bar"
+            initial={{ width: "0%" }}
+            animate={{ width: `${((unlockStage + 1) / stages.length) * 100}%` }}
+            transition={{ duration: 0.5 }}
+          />
+        </div>
       </div>
     );
   };
@@ -1211,8 +1200,8 @@ export default function Kayurveda() {
               {currentTime.getHours() < 12
                 ? "🌅"
                 : currentTime.getHours() < 17
-                ? "☀️"
-                : "🌙"}
+                  ? "☀️"
+                  : "🌙"}
             </div>
           </div>
           <div className="pt-3 border-t border-gray-700">
@@ -1234,31 +1223,31 @@ export default function Kayurveda() {
               return (
                 <motion.div
                   key={ritual.id}
-                  className={`bg-gray-900 border ${
-                    ritual.done ? "border-gray-700" : "border-gray-800"
-                  } rounded-2xl p-4 flex items-center gap-4`}
+                  className={`bg-gray-900 border ${ritual.done ? "border-gray-700" : "border-gray-800"
+                    } rounded-2xl p-4 flex items-center gap-4`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      ritual.done ? "bg-white/10" : "bg-white"
-                    }`}
-                  >
-                    <Icon
-                      className={`w-5 h-5 ${
-                        ritual.done ? "text-gray-500" : "text-black"
-                      }`}
-                    />
-                  </div>
+                  {ritual.useSigil ? (
+                    <KayaSigil variant="avatar" />
+                  ) : (
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center ${ritual.done ? "bg-white/10" : "bg-white"
+                        }`}
+                    >
+                      {Icon && <Icon
+                        className={`w-5 h-5 ${ritual.done ? "text-gray-500" : "text-black"
+                          }`}
+                      />}
+                    </div>
+                  )}
                   <div className="flex-1">
                     <p
-                      className={`text-sm ${
-                        ritual.done
-                          ? "text-gray-500 line-through"
-                          : "text-white"
-                      }`}
+                      className={`text-sm ${ritual.done
+                        ? "text-gray-500 line-through"
+                        : "text-white"
+                        }`}
                     >
                       {ritual.name}
                     </p>
@@ -1296,9 +1285,7 @@ export default function Kayurveda() {
           transition={{ delay: 0.6 }}
         >
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center flex-shrink-0">
-              <Sparkles className="w-5 h-5 text-black" />
-            </div>
+            <KayaSigil variant="avatar" />
             <div className="flex-1">
               <p className="text-xs text-gray-400 mb-1">KAYA says</p>
               <p className="text-sm leading-relaxed">{currentNudge}</p>
@@ -1354,20 +1341,18 @@ export default function Kayurveda() {
 
             <div className="flex gap-2 bg-gray-900 p-1 rounded-full">
               <button
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full transition-all ${
-                  activeRoutine === "morning"
-                    ? "bg-white text-black"
-                    : "text-gray-500"
-                }`}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full transition-all ${activeRoutine === "morning"
+                  ? "bg-white text-black"
+                  : "text-gray-500"
+                  }`}
                 onClick={() => setActiveRoutine("morning")}
               >
                 <Sun className="w-4 h-4" />
                 <span className="text-sm">Morning</span>
               </button>
               <button
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full transition-all ${
-                  activeRoutine === "night" ? "bg-white text-black" : "text-gray-500"
-                }`}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full transition-all ${activeRoutine === "night" ? "bg-white text-black" : "text-gray-500"
+                  }`}
                 onClick={() => setActiveRoutine("night")}
               >
                 <Moon className="w-4 h-4" />
@@ -1414,9 +1399,8 @@ export default function Kayurveda() {
                   return (
                     <motion.div
                       key={step.name}
-                      className={`bg-gray-900 border ${
-                        isCompleted ? "border-gray-700" : "border-gray-800"
-                      } rounded-2xl p-4`}
+                      className={`bg-gray-900 border ${isCompleted ? "border-gray-700" : "border-gray-800"
+                        } rounded-2xl p-4`}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{
@@ -1425,11 +1409,10 @@ export default function Kayurveda() {
                     >
                       <div className="flex items-start gap-4">
                         <button
-                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${
-                            isCompleted
-                              ? "bg-white border-white"
-                              : "border-gray-600 hover:border-white"
-                          }`}
+                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${isCompleted
+                            ? "bg-white border-white"
+                            : "border-gray-600 hover:border-white"
+                            }`}
                           onClick={() => toggleRoutineStep(step.name)}
                         >
                           {isCompleted && <Check className="w-4 h-4 text-black" />}
@@ -1437,11 +1420,10 @@ export default function Kayurveda() {
 
                         <div className="flex-1">
                           <p
-                            className={`text-sm mb-1 ${
-                              isCompleted
-                                ? "text-gray-500 line-through"
-                                : "text-white"
-                            }`}
+                            className={`text-sm mb-1 ${isCompleted
+                              ? "text-gray-500 line-through"
+                              : "text-white"
+                              }`}
                           >
                             {step.name}
                           </p>
@@ -1488,17 +1470,17 @@ export default function Kayurveda() {
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 border-b border-gray-700 p-6">
         <div className="flex items-center gap-3">
           <motion.div
-            className="w-12 h-12 rounded-full bg-white flex items-center justify-center"
             animate={{
               boxShadow: [
-                "0 0 20px rgba(255,255,255,0.3)",
-                "0 0 30px rgba(255,255,255,0.5)",
-                "0 0 20px rgba(255,255,255,0.3)",
+                "0 0 20px rgba(127,182,154,0.2)",
+                "0 0 30px rgba(127,182,154,0.4)",
+                "0 0 20px rgba(127,182,154,0.2)",
               ],
             }}
             transition={{ duration: 2, repeat: Infinity }}
+            className="rounded-full"
           >
-            <Sparkles className="w-6 h-6 text-black" />
+            <KayaSigil variant="avatar" />
           </motion.div>
           <div>
             <h2 className="text-lg font-light">KAYA</h2>
@@ -1512,25 +1494,22 @@ export default function Kayurveda() {
           {messages.map((message) => (
             <motion.div
               key={message.id}
-              className={`flex ${
-                message.sender === "user" ? "justify-end" : "justify-start"
-              }`}
+              className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"
+                }`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
             >
               <div
-                className={`max-w-[80%] rounded-2xl p-4 ${
-                  message.sender === "user"
-                    ? "bg-white text-black"
-                    : "bg-gray-900 text-white border border-gray-800"
-                }`}
+                className={`max-w-[80%] rounded-2xl p-4 ${message.sender === "user"
+                  ? "bg-white text-black"
+                  : "bg-gray-900 text-white border border-gray-800"
+                  }`}
               >
                 <p className="text-sm leading-relaxed">{message.text}</p>
                 <p
-                  className={`text-xs mt-2 ${
-                    message.sender === "user" ? "text-gray-600" : "text-gray-500"
-                  }`}
+                  className={`text-xs mt-2 ${message.sender === "user" ? "text-gray-600" : "text-gray-500"
+                    }`}
                 >
                   {message.timestamp.toLocaleTimeString([], {
                     hour: "2-digit",
@@ -1869,11 +1848,10 @@ export default function Kayurveda() {
               return (
                 <button
                   key={item.label}
-                  className={`w-full flex items-center gap-4 p-4 hover:bg-gray-800 transition-colors ${
-                    itemIndex !== section.items.length - 1
-                      ? "border-b border-gray-800"
-                      : ""
-                  }`}
+                  className={`w-full flex items-center gap-4 p-4 hover:bg-gray-800 transition-colors ${itemIndex !== section.items.length - 1
+                    ? "border-b border-gray-800"
+                    : ""
+                    }`}
                 >
                   <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center">
                     <Icon className="w-5 h-5 text-gray-400" />
@@ -1953,7 +1931,7 @@ export default function Kayurveda() {
     const tabs = [
       { id: "home", label: "Home", icon: Home },
       { id: "routine", label: "Routine", icon: Calendar },
-      { id: "kaya", label: "KAYA", icon: MessageCircle },
+      { id: "kaya", label: "KAYA", icon: MessageCircle, useSigil: true },
       { id: "progress", label: "Progress", icon: TrendingUp },
       { id: "profile", label: "Profile", icon: User },
     ];
@@ -1979,9 +1957,8 @@ export default function Kayurveda() {
                 <button
                   key={tab.id}
                   onClick={() => setDashboardTab(tab.id as any)}
-                  className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all ${
-                    isKaya ? "relative" : isActive ? "text-white" : "text-gray-600"
-                  }`}
+                  className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all ${isKaya ? "relative" : isActive ? "text-white" : "text-gray-600"
+                    }`}
                 >
                   {isKaya ? (
                     <motion.div
@@ -1989,9 +1966,9 @@ export default function Kayurveda() {
                       animate={
                         isActive
                           ? {
-                              scale: [1, 1.1, 1],
-                              opacity: [0.8, 1, 0.8],
-                            }
+                            scale: [1, 1.1, 1],
+                            opacity: [0.8, 1, 0.8],
+                          }
                           : {}
                       }
                       transition={{
@@ -2001,27 +1978,21 @@ export default function Kayurveda() {
                       }}
                     >
                       <div
-                        className={`p-3 rounded-full ${
-                          isActive ? "bg-white" : "bg-gray-800"
-                        }`}
-                      >
-                        <Icon
-                          className={`w-5 h-5 ${
-                            isActive ? "text-black" : "text-gray-400"
+                        className={`p-3 rounded-full ${isActive ? "bg-[#111111] border border-[#7FB69A]/40" : "bg-gray-800"
                           }`}
-                        />
+                      >
+                        <KayaSigil variant="tab" />
                       </div>
                       {isActive && (
-                        <div className="absolute inset-0 rounded-full bg-white opacity-30 blur-md" />
+                        <div className="absolute inset-0 rounded-full opacity-30 blur-md" style={{ background: 'rgba(127,182,154,0.35)' }} />
                       )}
                     </motion.div>
                   ) : (
                     <Icon className="w-5 h-5" />
                   )}
                   <span
-                    className={`text-xs ${
-                      isActive ? "font-medium" : "font-normal"
-                    }`}
+                    className={`text-xs ${isActive ? "font-medium" : "font-normal"
+                      }`}
                   >
                     {tab.label}
                   </span>
@@ -2045,7 +2016,7 @@ export default function Kayurveda() {
       {currentScreen === "concerns" && renderConcerns()}
       {currentScreen === "unlock" && renderUnlock()}
       {currentScreen === "dashboard" && renderDashboard()}
-      
+
       {/* PWA Install Prompt */}
       <InstallPrompt />
     </div>
