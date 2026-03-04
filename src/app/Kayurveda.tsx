@@ -862,7 +862,11 @@ export default function Kayurveda() {
                 {question.options.map((option, index) => (
                   <motion.button
                     key={index}
-                    className="w-full p-4 bg-[#111111] hover:bg-[#181818] border border-white/5 hover:border-white/20 rounded-[14px] text-left transition-colors"
+                    className="w-full p-4 bg-[#111111] hover:bg-[#181818] text-left transition-colors"
+                    style={{
+                      borderRadius: '12px',
+                      border: '1px solid var(--border)'
+                    }}
                     onClick={() => handleDoshaAnswer(option.dosha)}
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.98 }}
@@ -1207,7 +1211,7 @@ export default function Kayurveda() {
     const greeting = getGreeting();
 
     return (
-      <div className="min-h-screen bg-black text-white p-6 space-y-6">
+      <div className="text-white py-6 space-y-6 screen-content">
         <motion.div
           className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-3xl p-6 space-y-3"
           initial={{ opacity: 0, y: 20 }}
@@ -1361,10 +1365,10 @@ export default function Kayurveda() {
     return (
       <div className="text-white">
         <div className="sticky top-0 bg-black/95 backdrop-blur-sm border-b border-gray-900 z-10">
-          <div className="p-6 space-y-4">
-            <h1 className="text-2xl font-light">Your Routine</h1>
+          <div className="pt-6 pb-4 space-y-4">
+            <h1 className="text-2xl font-light screen-content">Your Routine</h1>
 
-            <div className="flex gap-2 bg-gray-900 p-1 rounded-full">
+            <div className="flex gap-2 bg-gray-900 p-1 rounded-full mx-4">
               <button
                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full transition-all ${activeRoutine === "morning"
                   ? "bg-white text-black"
@@ -1385,7 +1389,7 @@ export default function Kayurveda() {
               </button>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 screen-content">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-400">Progress</span>
                 <span className="text-white">
@@ -1404,7 +1408,7 @@ export default function Kayurveda() {
           </div>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="py-6 space-y-6 screen-content">
           {routine.map((zone, zoneIndex) => (
             <motion.div
               key={zone.zone}
@@ -1492,7 +1496,7 @@ export default function Kayurveda() {
   // Dashboard - KAYA Chat Tab
   const renderKayaTab = () => (
     <div className="flex flex-col text-white" style={{ height: 'calc(100dvh - 72px)' }}>
-      <div className="bg-gradient-to-r from-gray-900 to-gray-800 border-b border-gray-700 p-6">
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 border-b border-gray-700 py-6 screen-content">
         <div className="flex items-center gap-3">
           <motion.div
             animate={{
@@ -1514,7 +1518,7 @@ export default function Kayurveda() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 overflow-y-auto py-6 space-y-4 screen-content">
         <AnimatePresence>
           {messages.map((message) => (
             <motion.div
@@ -1598,7 +1602,7 @@ export default function Kayurveda() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="border-t border-gray-900 p-4 bg-black">
+      <div className="border-t border-gray-900 py-4 bg-black screen-content">
         <div className="flex gap-2 max-w-4xl mx-auto">
           <Input
             value={inputValue}
@@ -1624,7 +1628,7 @@ export default function Kayurveda() {
     const maxCompleted = Math.max(...weeklyData.map((d) => d.completed));
 
     return (
-      <div className="text-white p-6 space-y-6">
+      <div className="text-white py-6 space-y-6 screen-content">
         <div className="space-y-2">
           <h1 className="text-2xl font-light">Your Progress</h1>
           <p className="text-sm text-gray-400">
@@ -1792,7 +1796,7 @@ export default function Kayurveda() {
 
   // Dashboard - Profile Tab
   const renderProfileTab = () => (
-    <div className="text-white p-6 space-y-6">
+    <div className="text-white py-6 space-y-6 screen-content">
       <motion.div
         className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-3xl p-6 space-y-4"
         initial={{ opacity: 0, y: 20 }}

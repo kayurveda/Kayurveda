@@ -22,6 +22,11 @@
     /* clears the fixed tab bar */
 }
 
+/* ── Global Screen Container ── */
+.screen-content {
+    padding: 0 16px;
+}
+
 /* ── Fixed bottom tab bar ── */
 .tab-bar {
     position: fixed;
